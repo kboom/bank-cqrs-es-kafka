@@ -16,6 +16,7 @@
 
     <modules>
         <module>bank-commons</module>
+        <module>bank-customer-management</module>
         <module>bank-account-management</module>
         <module>bank-transaction-processing</module>
     </modules>
