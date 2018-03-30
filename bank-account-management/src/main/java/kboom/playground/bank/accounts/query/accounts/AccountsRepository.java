@@ -11,4 +11,5 @@ public interface AccountsRepository {
     void updateBalance(UUID accountId, BigDecimal balance, int version);
 
     List<AccountProjection> getAccounts(UUID clientId);
+
 }
