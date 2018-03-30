@@ -1,0 +1,23 @@
+version: "3"
+services:
+  bank-customer:
+    image: customer:compose
+    build:
+      context: bank-customer-management
+    ports:
+      - 9010:8080
+      - 9011:8081
+  bank-account:
+    image: account:compose
+    build:
+      context: bank-account-management
+    ports:
+      - 9020:8080
+      - 9021:8081
+  bank-transactions:
+    image: transactions:compose
+    build:
+      context: bank-transaction-processing
+    ports:
+      - 9030:8080
+      - 9031:8081
