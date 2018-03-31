@@ -1,4 +1,4 @@
-package kboom.playground.bank.accounts.query.transactions;
+package kboom.playground.bank.accounts.query.operations;
 
 import org.joda.time.DateTime;
 
@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class TransactionProjection {
+public class OperationProjection {
 
     private final UUID accountId;
     private final TransactionType type;
@@ -15,8 +15,8 @@ public class TransactionProjection {
     private final DateTime timestamp;
     private final int version;
 
-    public TransactionProjection(UUID accountId, TransactionType type, BigDecimal amount,
-                                 DateTime timestamp, int version) {
+    public OperationProjection(UUID accountId, TransactionType type, BigDecimal amount,
+                               DateTime timestamp, int version) {
         this.accountId = checkNotNull(accountId);
         this.type = checkNotNull(type);
         this.amount = checkNotNull(amount).setScale(2, BigDecimal.ROUND_HALF_UP);

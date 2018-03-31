@@ -8,6 +8,13 @@ import io.dropwizard.setup.Environment;
 import kboom.playground.bank.commons.EventStore;
 import kboom.playground.bank.commons.InMemoryEventStore;
 import kboom.playground.bank.transactions.command.OptimisticLockingExceptionMapper;
+import kboom.playground.bank.transactions.command.TransactionResource;
+import kboom.playground.bank.transactions.command.TransactionsResource;
+import kboom.playground.bank.transactions.domain.service.TransactionService;
+import kboom.playground.bank.transactions.query.AccountTransactionsResource;
+import kboom.playground.bank.transactions.query.InMemoryTransactionsRepository;
+import kboom.playground.bank.transactions.query.TransactionsListener;
+import kboom.playground.bank.transactions.query.TransactionsRepository;
 import org.glassfish.jersey.linking.DeclarativeLinkingFeature;
 import org.glassfish.jersey.logging.LoggingFeature;
 
@@ -24,7 +31,7 @@ public class TransactionsBankApplication extends Application<Configuration> {
     }
 
     @Override
-    public void run(Configuration configuration, Environment environment) throws Exception {
+    public void run(Configuration configuration, Environment environment) {
         registerFilters(environment);
         registerExceptionMappers(environment);
         registerHypermediaSupport(environment);
@@ -46,6 +53,16 @@ public class TransactionsBankApplication extends Application<Configuration> {
     private void registerResources(Environment environment) {
         EventStore eventStore = new InMemoryEventStore();
         EventBus eventBus = new AsyncEventBus(newSingleThreadExecutor());
+
+        // write model
+        TransactionService transactionService = new TransactionService(eventStore, eventBus);
+        environment.jersey().register(new TransactionsResource(transactionService));
+        environment.jersey().register(new TransactionResource(transactionService));
+
+        // read model
+        TransactionsRepository transactionsRepository = new InMemoryTransactionsRepository();
+        eventBus.register(new TransactionsListener(transactionsRepository));
+        environment.jersey().register(new AccountTransactionsResource(transactionsRepository));
     }
 
 }

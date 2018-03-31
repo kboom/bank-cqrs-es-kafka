@@ -1,4 +1,4 @@
-package kboom.playground.bank.accounts.query.transactions;
+package kboom.playground.bank.accounts.query.operations;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,18 +12,18 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @Produces(APPLICATION_JSON)
-@Path("/accounts/{id}/transactions")
-public class AccountTransactionsResource {
+@Path("/accounts/{id}/operations")
+public class OperationsResource {
 
-    private TransactionsRepository transactionsRepository;
+    private OperationsRepository operationsRepository;
 
-    public AccountTransactionsResource(TransactionsRepository transactionsRepository) {
-        this.transactionsRepository = checkNotNull(transactionsRepository);
+    public OperationsResource(OperationsRepository operationsRepository) {
+        this.operationsRepository = checkNotNull(operationsRepository);
     }
 
     @GET
     public Response get(@PathParam("id") UUID accountId) {
-        List<TransactionProjection> transactionProjections = transactionsRepository.listByAccount(accountId);
+        List<OperationProjection> transactionProjections = operationsRepository.listByAccount(accountId);
         return Response.ok(transactionProjections).build();
     }
 }

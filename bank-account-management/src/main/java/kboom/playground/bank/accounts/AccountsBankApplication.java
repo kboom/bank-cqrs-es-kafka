@@ -14,10 +14,10 @@ import kboom.playground.bank.accounts.query.accounts.AccountsListener;
 import kboom.playground.bank.accounts.query.accounts.AccountsRepository;
 import kboom.playground.bank.accounts.query.accounts.ClientAccountsResource;
 import kboom.playground.bank.accounts.query.accounts.InMemoryAccountsRepository;
-import kboom.playground.bank.accounts.query.transactions.AccountTransactionsResource;
-import kboom.playground.bank.accounts.query.transactions.InMemoryTransactionsRepository;
-import kboom.playground.bank.accounts.query.transactions.TransactionsListener;
-import kboom.playground.bank.accounts.query.transactions.TransactionsRepository;
+import kboom.playground.bank.accounts.query.operations.OperationsResource;
+import kboom.playground.bank.accounts.query.operations.InMemoryOperationsRepository;
+import kboom.playground.bank.accounts.query.operations.OperationListener;
+import kboom.playground.bank.accounts.query.operations.OperationsRepository;
 import kboom.playground.bank.commons.EventStore;
 import kboom.playground.bank.commons.InMemoryEventStore;
 import org.glassfish.jersey.linking.DeclarativeLinkingFeature;
@@ -66,9 +66,9 @@ public class AccountsBankApplication extends Application<Configuration> {
         environment.jersey().register(new AccountResource(accountService));
 
         // read model
-        TransactionsRepository transactionsRepository = new InMemoryTransactionsRepository();
-        eventBus.register(new TransactionsListener(transactionsRepository));
-        environment.jersey().register(new AccountTransactionsResource(transactionsRepository));
+        OperationsRepository transactionsRepository = new InMemoryOperationsRepository();
+        eventBus.register(new OperationListener(transactionsRepository));
+        environment.jersey().register(new OperationsResource(transactionsRepository));
 
         AccountsRepository accountsRepository = new InMemoryAccountsRepository();
         eventBus.register(new AccountsListener(accountsRepository));

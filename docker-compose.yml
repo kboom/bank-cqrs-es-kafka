@@ -1,4 +1,4 @@
-version: "3"
+version: "3.2"
 services:
   bank-customer:
     image: customer:compose
@@ -21,3 +21,22 @@ services:
     ports:
       - 9030:8080
       - 9031:8081
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    deploy:
+      mode: replicated
+      replicas: 3
+    depends_on:
+      - zookeeper
+    ports:
+       - target: 9094
+         published: 9094
+         protocol: tcp
+         mode: host
+    environment:
+      HOSTNAME_COMMAND: "docker info | grep ^Name: | cut -d' ' -f 2"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
