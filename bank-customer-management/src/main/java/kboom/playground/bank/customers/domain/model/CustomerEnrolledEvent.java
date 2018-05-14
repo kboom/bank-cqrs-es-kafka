@@ -7,12 +7,12 @@ import java.util.UUID;
 import kboom.playground.bank.commons.Event;
 import org.joda.time.DateTime;
 
-public class ClientEnrolledEvent extends Event {
+public class CustomerEnrolledEvent extends Event {
 
     private final String name;
     private final String email;
 
-    public ClientEnrolledEvent(UUID aggregateId, DateTime timestamp, int version, String name, Email email) {
+    public CustomerEnrolledEvent(UUID aggregateId, DateTime timestamp, int version, String name, Email email) {
         super(aggregateId, timestamp, version);
         this.name = checkNotNull(name);
         this.email = checkNotNull(email).getValue();

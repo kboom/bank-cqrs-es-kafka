@@ -11,7 +11,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertThat;
 
-public class ClientTest {
+public class CustomerTest {
 
     @Test
     public void newClientHasBeenEnrolled() throws Exception {
@@ -19,19 +19,19 @@ public class ClientTest {
         String name = "john";
         Email email = new Email("john@example.com");
 
-        Client client = new Client(id, name, email);
+        Customer customer = new Customer(id, name, email);
 
-        List<Event> newEvents = client.getNewEvents();
+        List<Event> newEvents = customer.getNewEvents();
         assertThat(newEvents.size(), equalTo(1));
-        assertThat(newEvents.get(0), instanceOf(ClientEnrolledEvent.class));
-        ClientEnrolledEvent event = (ClientEnrolledEvent) newEvents.get(0);
+        assertThat(newEvents.get(0), instanceOf(CustomerEnrolledEvent.class));
+        CustomerEnrolledEvent event = (CustomerEnrolledEvent) newEvents.get(0);
         assertThat(event.getAggregateId(), equalTo(id));
         assertThat(event.getName(), equalTo(name));
         assertThat(event.getEmail(), equalTo(email));
 
-        assertThat(client.getId(), equalTo(id));
-        assertThat(client.getName(), equalTo(name));
-        assertThat(client.getEmail(), equalTo(email));
+        assertThat(customer.getId(), equalTo(id));
+        assertThat(customer.getName(), equalTo(name));
+        assertThat(customer.getEmail(), equalTo(email));
     }
 
 }

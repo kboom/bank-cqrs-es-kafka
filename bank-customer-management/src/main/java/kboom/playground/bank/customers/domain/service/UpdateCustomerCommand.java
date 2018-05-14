@@ -7,13 +7,13 @@ import java.util.UUID;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class UpdateClientCommand {
+public class UpdateCustomerCommand {
 
     private final UUID id;
     private final String name;
     private final Email email;
 
-    public UpdateClientCommand(UUID id, String name, Email email) {
+    public UpdateCustomerCommand(UUID id, String name, Email email) {
         this.id = checkNotNull(id);
         this.name = checkNotNull(name);
         this.email = checkNotNull(email);

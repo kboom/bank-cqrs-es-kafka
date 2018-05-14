@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.READ_ONLY;
 
-public class ClientDto {
+public class CustomerDto {
 
     @JsonProperty(access = READ_ONLY)
     private UUID id;

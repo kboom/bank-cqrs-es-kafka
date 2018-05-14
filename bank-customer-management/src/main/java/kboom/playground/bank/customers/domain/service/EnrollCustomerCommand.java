@@ -5,12 +5,12 @@ import kboom.playground.bank.customers.domain.model.Email;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class EnrollClientCommand {
+public class EnrollCustomerCommand {
 
     private final String name;
     private final Email email;
 
-    public EnrollClientCommand(String name, Email email) {
+    public EnrollCustomerCommand(String name, Email email) {
         this.name = checkNotNull(name);
         this.email = checkNotNull(email);
     }

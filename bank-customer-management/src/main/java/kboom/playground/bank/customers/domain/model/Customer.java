@@ -12,38 +12,38 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.joda.time.DateTime.now;
 import static org.joda.time.DateTimeZone.UTC;
 
-public class Client extends Aggregate {
+public class Customer extends Aggregate {
 
     private String name;
     private Email email;
 
-    public Client(UUID id, String name, Email email) {
+    public Customer(UUID id, String name, Email email) {
         super(id);
         validateName(name);
         validateEmail(email);
-        ClientEnrolledEvent clientEnrolledEvent = new ClientEnrolledEvent(
+        CustomerEnrolledEvent customerEnrolledEvent = new CustomerEnrolledEvent(
                 id, now(UTC), getNextVersion(), name, email);
-        applyNewEvent(clientEnrolledEvent);
+        applyNewEvent(customerEnrolledEvent);
     }
 
-    public Client(UUID id, List<Event> eventStream) {
+    public Customer(UUID id, List<Event> eventStream) {
         super(id, eventStream);
     }
 
     public void update(String name, Email email) {
-        ClientUpdatedEvent clientUpdatedEvent = new ClientUpdatedEvent(
+        CustomerUpdatedEvent customerUpdatedEvent = new CustomerUpdatedEvent(
                 getId(), now(UTC), getNextVersion(), name, email);
-        applyNewEvent(clientUpdatedEvent);
+        applyNewEvent(customerUpdatedEvent);
     }
 
     @SuppressWarnings("unused")
-    public void apply(ClientEnrolledEvent event) {
+    public void apply(CustomerEnrolledEvent event) {
         this.name = event.getName();
         this.email = event.getEmail();
     }
 
     @SuppressWarnings("unused")
-    private void apply(ClientUpdatedEvent event) {
+    private void apply(CustomerUpdatedEvent event) {
         this.name = event.getName();
         this.email = event.getEmail();
     }

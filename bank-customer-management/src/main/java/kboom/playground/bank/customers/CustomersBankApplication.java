@@ -7,10 +7,10 @@ import io.dropwizard.Configuration;
 import io.dropwizard.setup.Environment;
 import kboom.playground.bank.commons.EventStore;
 import kboom.playground.bank.commons.InMemoryEventStore;
-import kboom.playground.bank.customers.command.ClientResource;
-import kboom.playground.bank.customers.command.ClientsResource;
+import kboom.playground.bank.customers.command.CustomerResource;
+import kboom.playground.bank.customers.command.CustomersResource;
 import kboom.playground.bank.customers.command.OptimisticLockingExceptionMapper;
-import kboom.playground.bank.customers.domain.service.ClientService;
+import kboom.playground.bank.customers.domain.service.CustomerService;
 import org.glassfish.jersey.linking.DeclarativeLinkingFeature;
 import org.glassfish.jersey.logging.LoggingFeature;
 
@@ -51,9 +51,9 @@ public class CustomersBankApplication extends Application<Configuration> {
         EventBus eventBus = new AsyncEventBus(newSingleThreadExecutor());
 
         // write model
-        ClientService clientService = new ClientService(eventStore);
-        environment.jersey().register(new ClientsResource(clientService));
-        environment.jersey().register(new ClientResource(clientService));
+        CustomerService customerService = new CustomerService(eventStore);
+        environment.jersey().register(new CustomersResource(customerService));
+        environment.jersey().register(new CustomerResource(customerService));
     }
 
 }
