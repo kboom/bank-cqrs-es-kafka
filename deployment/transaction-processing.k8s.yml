@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: bank-transaction-processing
-        image: bank-Ztransaction-processing
+        image: bank-transaction-processing
         imagePullPolicy: Never
         ports:
         - containerPort: 80
