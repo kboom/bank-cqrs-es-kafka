@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>kboom.playground.bank</groupId>
+    <groupId>com.plgrnds.bank</groupId>
     <artifactId>bank-transaction-processing</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -17,8 +17,9 @@
     <dependencies>
 
         <dependency>
-            <groupId>kboom.playground.bank</groupId>
+            <groupId>com.plgrnds.bank</groupId>
             <artifactId>bank-commons</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -78,11 +79,21 @@
             <version>1.10.19</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
-            <groupId>kboom.playground.bank</groupId>
-            <artifactId>bank-commons</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>1.0-groovy-2.4</version>
+            <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>2.4.13</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

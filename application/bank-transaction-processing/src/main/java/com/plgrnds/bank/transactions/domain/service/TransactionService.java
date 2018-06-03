@@ -18,6 +18,8 @@ import static java.util.UUID.randomUUID;
 
 public class TransactionService {
 
+    private static final int MAX_ATTEMPTS = 3;
+
     private final EventStore eventStore;
     private final EventBus eventBus;
     private final Retrier conflictRetrier;
@@ -25,8 +27,7 @@ public class TransactionService {
     public TransactionService(EventStore eventStore, EventBus eventBus) {
         this.eventStore = checkNotNull(eventStore);
         this.eventBus = checkNotNull(eventBus);
-        int maxAttempts = 3;
-        this.conflictRetrier = new Retrier(singletonList(OptimisticLockingException.class), maxAttempts);
+        this.conflictRetrier = new Retrier(singletonList(OptimisticLockingException.class), MAX_ATTEMPTS);
     }
 
     public Optional<Transaction> loadTransaction(UUID id) {
@@ -46,6 +47,7 @@ public class TransactionService {
         return transaction;
     }
 
+    @SuppressWarnings("unused")
     private Transaction process(UUID accountId, Consumer<Transaction> consumer)
             throws TransactionNotFoundException, OptimisticLockingException {
 
